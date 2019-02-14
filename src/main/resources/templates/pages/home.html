@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymkeaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="ISO-8859-1"/>
+<link rel="stylesheet" type="text/css" href="../static/bootstrap.min.css" 
+th:href="@{/bootstrap.min.css}" />
+
+<title>Insert title here</title>
+
+<SCRIPT language="Javascript">
+
+function sendActionAdd(modeAddEdit)
+{
+	alert("Hello "+modeAddEdit + "  : "+ document.getElementById("id").value);
+document.getElementById("id").value=modeAddEdit;
+};
+
+</SCRIPT>
+</head>
+
+<body>
+
+
+
+	
+		<!-- first col -->
+		<div class="col-md-6">
+		
+			<div class="panel panel-primary">
+				<div class="panel-heading">Liste des Users :</div>
+				<div class="panel-body">
+					<table class="table table-striped">
+						<tr>
+							<th>Id</th>
+							<th>Name</th>
+							<th>LastName</th>
+							<th>Age</th>
+						</tr>
+						<tr th:each="u:${users}">
+							<td><a th:href="@{/printUser(id=${u.id})}"><label th:text="${u.id}"></label></a></td>
+							<td th:text="${u.name}"></td>
+							<td th:text="${u.lastname}"></td>
+							<td th:text="${u.age}"></td>
+							<td><a th:href="@{/deleteUser(id=${u.id})}">Delete</a></td>
+						</tr>
+
+					</table>
+					
+				</div>
+			</div>
+	
+			
+	
+		</div><!-- end first div col -->
+		
+		
+		<!-- second col -->
+		<div class="col-md-6">
+	
+			<div class="panel panel-primary" th:if="${edit} == 0">
+				<div class="panel-heading">Add Users :</div>
+				<div class="panel-body">				
+			
+					<form th:action="@{/addUser}" method="post">
+						<div>
+							<table class="table table-condensed table-hover table-striped">
+								 <tr>
+									<td><label>Name : </label></td>   <td><input type="text"  name="name"/></td>
+								</tr>
+								<tr>
+									<td><label>last Name : </label></td><td><input type="text"  name="lastname"/></td>
+								</tr>
+								<tr>
+									<td><label>Age : </label></td><td><input type="text"  name="age"/></td>
+								</tr>
+							</table>
+
+							<button type="submit" class="btn btn-primary">Add user</button>
+						</div>
+					</form>
+				</div>
+			</div>
+					
+			<div class="panel panel-primary" th:if="${edit} == 1">
+				<div class="panel-heading">Edit Users :</div>
+				<div class="panel-body">				
+			
+					<form th:action="@{/editUser}" method="post">
+						<div>
+						<table class="table table-condensed table-hover table-striped">
+								 <tr>
+									<td><label>Name : </label></td>   <td><input type="text" id="name"  name="name" th:value="${user.name}"/></td>
+								</tr>
+								<tr>
+									<td><label>last Name : </label></td><td><input type="text" id="lastname"  name="lastname" th:value="${user.lastname}"/></td>
+								</tr>
+								<tr>
+									<td><label>Age : </label></td><td><input type="text" id="age"  name="age" th:value="${user.age}"/></td>
+								</tr>
+								
+							</table>
+							
+							<input type="hidden" id="id" th:name="id" th:value="${user.id}" />
+							<button type="submit" class="btn btn-primary" onclick="sendActionAdd(0);" th:text="'Add user'">Add user</button>
+							<button type="submit" class="btn btn-primary" th:text="'Edit user Id = '+ ${user.id}"></button>
+						</div>
+					</form>
+				</div>
+
+			</div>
+			
+	    </div><!-- end second div col -->
+	
+
+
+</body>
+</html>
