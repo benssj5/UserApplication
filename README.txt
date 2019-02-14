@@ -14,4 +14,4 @@ This application allow on a One-Web-Page to show :
 - Edit an user
 - Delete an user
 
-Need to run the application et launch http://localhost:8080
+Need to run the application and launch http://localhost:8080
